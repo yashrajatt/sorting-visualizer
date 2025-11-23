@@ -1,0 +1,15 @@
+.Bars{
+    margin-top: 10px;
+    background-color: blue;
+    width: 1%;
+    height: 30px;
+}
+
+.outerBox{
+    display: flex;
+    gap: 1px;
+    width: 95%;
+    align-items: baseline;
+    align-content: center;
+
+}
