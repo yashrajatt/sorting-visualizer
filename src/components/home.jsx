@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-// import Ex from "./example.jsx";
+import Ex from "./example.jsx";
 import Bars from "./createBars.jsx";
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
         <h1>This is a Sorting Visualuser</h1>
         <div>
             <div style={styles.outerWall}>
-                <Bars/>
+                <Bars />
             </div>
         </div>
         <div>
@@ -55,7 +55,7 @@ export default function Home() {
             <button id="selection" onClick={handleSel}>Selection Sort</button>
         </div>
         <div>
-            {/* <Ex/> */}
+            <Ex />
         </div>
     </>
 }
