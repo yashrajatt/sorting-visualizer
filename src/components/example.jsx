@@ -3,55 +3,28 @@ import ReactDOM from "react-dom";
 
 export default function Ex() {
 
-    var arr = [];
-    const [display, setDisplay] = useState("");
-
-    for (var i = 0; i < 30; i++) {
-        arr[i] = Math.round(Math.random() * 100);
+    var styles = {
+        backgroundColor: 'red',
+        height: '200px',
+        width: '90%'
     };
 
-    useEffect(() => {
-        for (var i = 0; i < 30; i++) {
-        setDisplay(display + arr[i] + ',');
-    };
+    var styles2 = {
+        backgroundColor: 'black',
+        height: '200px',
+        width: '90%'
+    }
 
-    setDisplay(display.substring(0, display.length - 1));
-    console.log(display);
+   var change = false
 
-    },[arr])
-
-    
-
-
-    var k = 0, count = 0;
-    const handleStart = () => {
-        console.log("sorting")
-        for (var i = 0; i < 30; i++) {
-            count = 0;
-            for (var j = 0; j < 30; j++) {
-                k = j + 1;
-                if (arr[j] > arr[k]) {
-                    var temp = arr[j];
-                    arr[j] = arr[k];
-                    arr[k] = temp;
-                }
-                else {
-                    count++;
-                }
-            }
-
-            setTimeout(() => {console.log(arr)},200*i);
-            if (count == 30) {
-                console.log(arr);
-                return;
-            }
-        }
-
+    const handelColorChange = () => {
+        change = !change;
     }
 
     return <>
-        <h2>{display}</h2>
-        <button onClick={handleStart}>Sort</button>
-
-    </>
+        <div id="color2" style={{ padding: '10px', height: '300px', width: '50%', display: 'flex', alignContent: 'center' }}>
+            <div id="color" style={change ? styles : styles2} ></div>
+        </div>
+        <button id="start" onClick={handelColorChange} >Change color</button>
+    </>;
 }

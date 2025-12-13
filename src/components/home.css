@@ -1,0 +1,16 @@
+.Bars{
+    margin-top: 10px;
+    background-color: blue;
+    width: 1%;
+    height: 30px;
+}
+
+.outerWall{
+    height: 240px;
+    display: flex;
+    gap: 1px;
+    width: 95%;
+    align-items: baseline;
+    padding: 10px;
+
+}
