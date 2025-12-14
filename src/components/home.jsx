@@ -5,71 +5,22 @@ import Ex from "./example.jsx";
 
 export default function Home() {
 
-    const [arr, setArr] = useState([]);//array jisme divs ban rhe hai
+    const [genComp, setGencomp] = useState([]);//array jisme divs ban rhe hai
 
-    const [arr2, setArr2] = useState([]);
+    const [step, setStep] = useState([]);
 
-    const [change, setChange] = useState([]);
-    
-    let heights = [];
-    
-    useEffect(() => {
-        for (var i = 0; i < 90; i++) {
-            heights[i] = Math.round(Math.random() * 100);
-        }
-        setArr(heights);
-        setArr(arr.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>));
-        setChange([arr]);
-        setArr2(arr);
-    }, [])
+    const [status, setStatus] = useState(0);
 
-    function sorting() {
+    const [heights, setHeights] = useState([]);
 
-        setArr2(change.map((val, index) => val))
+    const [changes,setChanges] = useState([]);
 
-    }
+    const [display, setDisplay] = useState(91);
 
     const handleQuick = () => {
     }
 
     const handleMerge = () => {
-    }
-
-    const handleBubble = () => {
-        console.log("sorting");
-        setChange([arr]);
-        var count = 0, k = 0;
-        for (var i = 0; i < 90; i++) {
-            count = 0;
-
-            for (var j = 0; j < arr.length; j++) {
-                k = j + 1;
-
-                if (heights[j] > heights[k]) {
-
-                    var temp = heights[j]
-                    heights[j] = heights[k];
-                    heights[k] = temp;
-
-                    arr[j] = <div className="Bars" key={j} style={{ height: heights[j] + '%' }} ></div>;
-                    arr[k] = <div className="Bars" key={k} style={{ height: heights[k] + '%' }} ></div>;
-                    setArr(arr);
-
-                    setChange(...change, [arr]);
-                }
-
-                else {
-                    count++;
-                }
-
-            }
-
-            if (count == arr.length) {
-                sorting();
-                return;
-            }
-        }
-
     }
 
     const handleIns = () => {
@@ -78,14 +29,77 @@ export default function Home() {
     const handleSel = () => {
     }
 
+    useEffect(() => {
+        for (var i = 0; i < 90; i++) {
+            heights[i] = Math.round(Math.random() * 100);
+        }
+        setHeights(heights);
+        setGencomp(heights);
+        changes.push([genComp]);
+        setChanges(changes);
+    }, [])
 
+    const handleBubble = () => {
 
+        var count = 0, k = 0;
+
+        for (var i = 0; i < 90; i++) {
+            count = 0;
+
+            for (var j = 0; j < genComp.length; j++) {
+                k = j + 1;
+
+                if (heights[j] > heights[k]) {
+
+                    var temp = heights[j]
+                    heights[j] = heights[k];
+                    heights[k] = temp;
+                    setHeights(heights);
+
+                    changes.push(heights);
+                    setChanges(changes);
+                }
+
+                else {
+                    count++;
+                }
+
+            }
+
+            if (count == genComp.length) {
+                setStatus(1);
+                setDisplay(0);
+                console.log("Sorting completed!")
+                return;
+            }
+        }
+    }
+
+    if (status == 1) {
+        console.log("Visuals called")
+        visuals();
+    }
+
+    function visuals() {
+
+        setStep(changes[display]);
+
+        console.log("state updated");
+
+        if (display < 90) {
+            setStatus(0);
+        }
+        else {
+            setDisplay(display+1);
+        }
+    }
 
     return <>
         <h1>This is a Sorting Visualuser</h1>
         <div>
             <div className="outerWall">
-                {arr}
+                {step.length !== 0 ? step.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>)
+                    : genComp.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>)}
             </div>
         </div>
         <div>
