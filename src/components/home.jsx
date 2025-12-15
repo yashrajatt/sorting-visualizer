@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import "./home.css";
 import Ex from "./example.jsx";
@@ -13,9 +13,11 @@ export default function Home() {
 
     const [heights, setHeights] = useState([]);
 
-    const [changes,setChanges] = useState([]);
+    const [changes, setChanges] = useState([]);
 
     const [display, setDisplay] = useState(91);
+
+    const counter = useRef(0);
 
     const handleQuick = () => {
     }
@@ -54,9 +56,11 @@ export default function Home() {
                     var temp = heights[j]
                     heights[j] = heights[k];
                     heights[k] = temp;
+                    console.log(heights);
                     setHeights(heights);
 
                     changes.push(heights);
+                    console.log(changes);
                     setChanges(changes);
                 }
 
@@ -76,29 +80,36 @@ export default function Home() {
     }
 
     if (status == 1) {
-        console.log("Visuals called")
+        console.log("Visuals called");
         visuals();
     }
 
     function visuals() {
 
-        setStep(changes[display]);
+        counter.current = counter.current + 1;
 
-        console.log("state updated");
+        setTimeout(() => {
 
-        if (display < 90) {
-            setStatus(0);
-        }
-        else {
-            setDisplay(display+1);
-        }
+            setStep(changes[display]);
+
+            console.log("state updated");
+
+            if (display < 90) {
+                setStatus(0);
+            }
+            else {
+                setDisplay(display + 1);
+            }
+
+        }, counter.current * 200);
+
     }
 
     return <>
         <h1>This is a Sorting Visualuser</h1>
         <div>
             <div className="outerWall">
-                {step.length !== 0 ? step.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>)
+                {status == 1 ? step.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>)
                     : genComp.map((val, index) => <div className="Bars" key={index} style={{ height: val + '%' }} ></div>)}
             </div>
         </div>
